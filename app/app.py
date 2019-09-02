@@ -39,7 +39,7 @@ def index():
     return 'Hello'
 
 
-@app.route('/model', methods=['GET', 'POST'])
+@app.route('/api/model', methods=['GET', 'POST'])
 def model():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'tf_model.pb')
     if os.path.isfile(file_path):
@@ -47,7 +47,7 @@ def model():
         return jsonify({'data': True})
     return jsonify({'data': False})
 
-@app.route('/modelcek', methods=['GET', 'POST'])
+@app.route('/api/modelcek', methods=['GET', 'POST'])
 def modelcek():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], 'tf_model.pb')
     if os.path.isfile(file_path):
@@ -57,7 +57,7 @@ def modelcek():
 
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 def upload():
     print(request.files)
     if 'file' not in request.files:
@@ -71,7 +71,7 @@ def upload():
             return 'Uploaded'
 
 
-@app.route('/uploadgambar', methods=['POST'])
+@app.route('/api/uploadgambar', methods=['POST'])
 def uploadgambar():
     if 'file' not in request.files:
         return 'Ga ada file yang diupload'
@@ -83,7 +83,7 @@ def uploadgambar():
             file.save(os.path.join(app.config['IMG_FOLDER'], filename))
             return filename
 
-@app.route('/results', methods=['POST'])
+@app.route('/api/results', methods=['POST'])
 def results():
     filename = os.path.join(app.config['IMG_FOLDER'], request.form['filename'])
     ops = request.form.getlist('ops[]')
@@ -98,7 +98,7 @@ def results():
     urls = get_images(op_folder)
     return jsonify(urls)
 
-@app.route('/gallery', methods=['GET'])
+@app.route('/api/gallery', methods=['GET'])
 def galley():
     folder = os.path.join(app.config['IMG_FOLDER'], 'ops')
     
